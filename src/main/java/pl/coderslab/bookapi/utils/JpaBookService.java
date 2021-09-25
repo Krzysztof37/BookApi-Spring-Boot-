@@ -1,21 +1,19 @@
 package pl.coderslab.bookapi.utils;
 
-import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import pl.coderslab.bookapi.entity.Book;
 
 import java.util.List;
-import java.util.Optional;
 
-@Data
+
+@Service
 public class JpaBookService implements BookService {
 
-public JpaBookService(){}
+    private final BookRepository bookRepository;
 
-    @Autowired
-    BookRepository bookRepository;
-
-
+    public JpaBookService(BookRepository bookRepository){
+        this.bookRepository = bookRepository;
+    }
 
 
     @Override

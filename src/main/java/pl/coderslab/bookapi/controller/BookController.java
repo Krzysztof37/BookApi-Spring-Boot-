@@ -4,6 +4,7 @@ package pl.coderslab.bookapi.controller;
 import org.hibernate.internal.build.AllowPrintStacktrace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,67 +23,70 @@ import java.util.Optional;
 public class BookController {
 
 
-    JpaBookService jpaBookService;
+    private final JpaBookService jpaBookService;
+
     @Autowired
     public BookController(JpaBookService jpaBookService) {
         this.jpaBookService = jpaBookService;
-
-
     }
 
     @GetMapping("/books/getall")
-    public String getBooks(Model model){
-       List<Book> bookList = jpaBookService.getAll();
-        model.addAttribute("bookList",bookList);
+    public String getBooks(Model model) {
+        List<Book> bookList = jpaBookService.getAll();
+        model.addAttribute("bookList", bookList);
 
 
         return "booksview";
     }
+
     @GetMapping("/books/add")
-    public String addBooks(Model model){
+    public String addBooks(Model model) {
         model.addAttribute("book", new Book());
 
         return "addbook-form";
     }
+
     @PostMapping("/books/add")
-    public String addBooksPost(@Valid Book book, BindingResult result){
-        if (result.hasErrors()){
+    public String addBooksPost(@Valid Book book, BindingResult result) {
+        if (result.hasErrors()) {
 
             return "addbook-form";
-        }else {
+        } else {
             jpaBookService.addBook(book);
         }
         return "redirect:/books/getall";
-        }
+    }
 
-        @GetMapping("/books/delete/{id}")
-    public String deleteBooks(@PathVariable Long id){
+    @GetMapping("/books/delete/{id}")
+    public String deleteBooks(@PathVariable Long id) {
         jpaBookService.deleteBook(id);
-    return "redirect:/books/getall";
-        }
+        return "redirect:/books/getall";
+    }
 
-        @GetMapping("/books/update/{id}")
-    public String updateBooks(@PathVariable Long id, Model model){
+    @GetMapping("/books/update/{id}")
+    public String updateBooks(@PathVariable Long id, Model model) {
         Book book = jpaBookService.getBook(id);
         model.addAttribute("book", book);
         return "updatebook-form";
-        }
-        @PostMapping("/books/update/{id}")
-    public String updateBooksPost(@Valid Book book, BindingResult result){
-        if (result.hasErrors()){
+    }
+
+
+    @PostMapping("/books/update/{id}")
+    public String updateBooksPost(@Valid Book book, BindingResult result) {
+        if (result.hasErrors()) {
             return "updatebook-form";
-        }else{
+        } else {
             jpaBookService.updateBook(book);
         }
         return "redirect:/books/getall";
-        }
+    }
 
-        @GetMapping("/books/info/{id}")
-    public String booksInfo(@PathVariable Long id, Model model){
+    @GetMapping("/books/info/{id}")
+    public String booksInfo(@PathVariable Long id, Model model) {
         Book book = jpaBookService.getBook(id);
         model.addAttribute("book", book);
         return "bookinfoview";
 
-        }
+    }
 
 }

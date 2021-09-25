@@ -17,15 +17,19 @@ import pl.coderslab.bookapi.utils.JpaBookService;
 @SpringBootApplication
 public class BookapiApplication extends SpringBootServletInitializer {
 
-	@Bean
-	JpaBookService jpaBookService(){
-		return new JpaBookService();
-	}
+//	@Bean
+//	JpaBookService jpaBookService(){
+//		return new JpaBookService();
+//	}
 
 
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(BookapiApplication.class, args);
+
+
+
 	}
 
 

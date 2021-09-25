@@ -2,6 +2,7 @@ package pl.coderslab.bookapi.entity;
 
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
@@ -9,7 +10,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Entity
-@RequiredArgsConstructor
+@NoArgsConstructor
 @Table(name = "books")
 @Data
 public class Book {
